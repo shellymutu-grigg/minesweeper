@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Minesweeper</title>
-    <link rel="stylesheet" href="minesweeper.css">
-    <script src="lib/tests.js"></script>
-    <script src="lib/lib.js"></script>
-    <script src="minesweeper.js"></script>
-  </head>
-  <body>
-    <div id="message"></div>
-    <div id="notes"></div>
-    <div class="board"></div>
-  </body>
+<head>
+  <title>Minesweeper</title>
+  <link rel="stylesheet" href="minesweeper.css">
+  <script src="lib/tests.js"></script>
+  <script src="lib/lib.js"></script>
+  <script src="minesweeper.js"></script>
+</head>
+<body>
+  <div id="message" align="center"></div>
+  <div id="notes"></div>
+  <div id="instructions" align="center">
+    <!-- Give users instructions on how to play the game -->
+    <p>
+      Instructions: <br>
+      Use mouse left click to unhide a cell<br>
+      Use mouse right click to mark cell as contaminated with COVID-19<br>
+      <b>HINT:</b>Try to avoid COVID-19!</p>
+  </div>
+  <!-- Allow users to determine size of board -->
+  <form action="">
+    <label for="boardSize">Please select your board size:</label>
+    <select name="boardSize" id="boardSize" onchange="createBoard(this.value)">
+      <option id="zero" value="0"></option>
+      <option id="two" value="2">2 cells x 2 cells</option>
+      <option id="three" value="3">3 cells x 3 cells</option>
+      <option id="four" value="4">4 cells x 4 cells</option>
+      <option id="five" value="5">5 cells x 5 cells</option>
+    </select>
+  </form>
+  <br>
+  <button id="clearBoard" onclick="clearTheBoard()">Clear the board</button>
+  <div id="board" class="board"></div>
+  <!-- Stretch Goal 03 - sound effects! Will trigger if COVID-19 infected cell is triggered-->
+  <audio id="audio">
+    <source src="audio/lost_in_space_danger.mp3" type="audio/ogg"></source>
+    <source src="audio/lost_in_space_danger.ogg" type="audio/mpeg"></source>
+  </audio>
+</body>
 </html>
