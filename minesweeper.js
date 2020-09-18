@@ -32,6 +32,7 @@ function clearTheBoard(){
   board = {}
   cells = []
   document.getElementById('board').innerHTML = ""
+  displayMessage("Let\'s play!")
 }
 
 function startGame () {      
