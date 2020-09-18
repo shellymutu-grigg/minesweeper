@@ -52,15 +52,20 @@ function checkForWin () {
     isMarkedCount: 0,
     isMineCount: 0
   }
+  
   totals.hiddenCount = document.getElementsByClassName('hidden').length
   totals.isMarkedCount = document.getElementsByClassName('marked').length
   totals.isMineCount = document.getElementsByClassName('mine').length
-
+  console.log("In checkForWin() isMarked: " + totals.isMarkedCount)
+  console.log("In checkForWin() isHidden: " + totals.hiddenCount)
+  console.log("In checkForWin() isMine: " + totals.isMineCount)
+  console.log("In checkForWin() board.length(): " + board.length + "\n")
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
  
-  if(totals.isMarkedCount === totals.isMineCount && totals.hiddenCount === 0 && board.length !==undefined){
-    lib.displayMessage('You win!')
+  if(totals.isMarkedCount === totals.isMineCount && totals.hiddenCount === 0){
+    console.log("In checkForWin(): You win!" + totals.isMineCount)
+    lib.displayMessage('YAH! You identified all the COVID-19 infected cells!')
   }
 
 }
