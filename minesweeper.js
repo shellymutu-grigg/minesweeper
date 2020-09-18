@@ -1,97 +1,41 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
-var board = {
-  cells: [{
-    row: 0,
-    col: 0,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 0,
-    col: 1,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 0,
-    col: 2,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 0,
-    col: 3,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 1,
-    col: 0,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 1,
-    col: 1,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 1,
-    col: 2,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 1,
-    col: 3,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 2,
-    col: 0,
-    isMine: true,
-    hidden: true
-  },  {
-    row: 2,
-    col: 1,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 2,
-    col: 2,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 2,
-    col: 3,
-    isMine: true,
-    hidden: true
-  },  {
-    row: 3,
-    col: 0,
-    isMine: true,
-    hidden: true
-  },  {
-    row: 3,
-    col: 1,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 3,
-    col: 2,
-    isMine: false,
-    hidden: true
-  },  {
-    row: 3,
-    col: 3,
-    isMine: false,
-    hidden: true}],
+var board = {}
+var cells = []
+
+//Stretch Goal 01 - automatically generate the board!
+function createBoard(size){
+  clearTheBoard()
+  var index = 0
+  var boardSize = size * size
+  for(var rowCount = 0; rowCount < size && index < boardSize; rowCount++){
+    for(var columnCount = 0; columnCount < size; columnCount++){
+      cells.push({
+        row: rowCount,
+        col: columnCount,
+        isMine: Math.random() >= 0.6,
+        hidden: true
+      })
+      index++
+    }
+  }
+  board.cells = cells
+  for(var index = 0; index < board.cells.length && index < boardSize; index ++){
+    board.cells[index].surroundingMines = countSurroundingMines(board.cells[index])      
+  }
+   // Don't remove this function call: it makes the game work!
+  lib.initBoard()
+}
+//Stretch Goal 02 - reset the board!
+function clearTheBoard(){
+  board = {}
+  cells = []
+  document.getElementById('board').innerHTML = ""
 }
 
-function startGame () {
-    for(var index = 0; index < board.cells.length; index ++){
-      board.cells[index].surroundingMines = countSurroundingMines(board.cells[index])
-      console.log("startGame() board.cells["+index+"].row: "+ board.cells[index].row + " board.cells["+index+"].col: "+ board.cells[index].col +" board.cells["+index+"].isMine: "+ board.cells[index].isMine+ " board.cells["+index+"].surroundingMines: "+ board.cells[index].surroundingMines)
-      
-    }
-  // Don't remove this function call: it makes the game work!
-  lib.initBoard()
+function startGame () {      
+  createBoard(document.getElementById('zero').value)
 
   document.addEventListener('click', checkForWin)
   document.addEventListener('contextmenu', checkForWin)
@@ -114,15 +58,12 @@ function checkForWin () {
 
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
-  if(totals.hiddenCount > 0){
-    lib.displayMessage('You still need to find the remaining mines!')
-  }else if(totals.isMarkedCount === totals.isMineCount && totals.hiddenCount === 0){
+ 
+  if(totals.isMarkedCount === totals.isMineCount && totals.hiddenCount === 0 && board.length !==undefined){
     lib.displayMessage('You win!')
   }
 
-  }
-
-
+}
 
 // Define this function to count the number of mines around the cell
 // (there could be as many as 8). You don't have to get the surrounding
