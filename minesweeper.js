@@ -36,7 +36,7 @@ function clearTheBoard(){
 }
 
 function startGame () {      
-  createBoard(document.getElementById('zero').value)
+  createBoard(document.getElementById('three').value)
 
   document.addEventListener('click', checkForWin)
   document.addEventListener('contextmenu', checkForWin)
